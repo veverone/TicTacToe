@@ -14,5 +14,5 @@ public interface TicTacToeRepository extends MongoRepository<TTTPlayer, String>,
 	
 	@Query("{ 'playerName' : 'Bogdan' , 'points' : ?0 }")
 	public List<TTTPlayer> findBogsAdversariesWithPoints(int points);
-
+	
 }
