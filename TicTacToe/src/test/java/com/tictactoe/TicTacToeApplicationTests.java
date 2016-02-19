@@ -39,6 +39,7 @@ public class TicTacToeApplicationTests {
 	
 	@Before
 	public void shouldCleanRepository(){
+		System.out.println("ran one time");
 		tttRepository.deleteAll();		
 	}
 }

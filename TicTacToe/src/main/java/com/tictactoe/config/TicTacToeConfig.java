@@ -7,6 +7,13 @@ import org.springframework.data.mongodb.core.MongoClientFactoryBean;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.web.servlet.ViewResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
+
 import com.mongodb.Mongo;
 //import com.mongodb.MongoClient;
 
@@ -27,6 +34,29 @@ public class TicTacToeConfig {
 	@Bean
 	public MongoOperations mongoTemplate(Mongo mongo) {
 		return new MongoTemplate(mongo, "TTTPlayersDB");
+	}
+	
+	@Bean
+	public ViewResolver viewResolver(SpringTemplateEngine templateEngine){
+		ThymeleafViewResolver thViewResolver = new ThymeleafViewResolver();
+		thViewResolver.setTemplateEngine(templateEngine);
+		return thViewResolver;
+	}
+	
+	@Bean
+	public TemplateEngine templateEngine(TemplateResolver templateResolver){
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver);
+		return templateEngine;
+	}
+	
+	@Bean
+	public TemplateResolver templateResolver(){
+		TemplateResolver templateResolver = new ServletContextTemplateResolver();
+		templateResolver.setPrefix("/src/main/resources/templates/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		return templateResolver;
 	}
 }
 
