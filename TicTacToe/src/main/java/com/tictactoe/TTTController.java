@@ -33,10 +33,9 @@ public class TTTController {
 		return "games";
 	}
 	
-	@RequestMapping(value="/player/register", method=RequestMethod.POST)
-	public String submit(TTTPlayer player){
-		tttRepository.save(player);
-		return "redirect:/";
+	@RequestMapping(value="/player/register", method=RequestMethod.GET)
+	public String register(){
+		return "register";
 	}
 
 }
